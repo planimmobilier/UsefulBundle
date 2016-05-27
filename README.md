@@ -47,30 +47,30 @@ For Symfony 2.0 please use branch 2.0 of ShtumiUsefulBundle:
 You also should install [SonataAdminBundle](https://github.com/sonata-project/SonataAdminBundle) and all dependencies for it.
 
 ### Add ShtumiUsefulBundle to your application kernel
-```
-    // app/AppKernel.php
-    public function registerBundles()
-    {
-        return array(
-            // ...
-            new Shtumi\UsefulBundle\ShtumiUsefulBundle(),
-            // ...
-        );
-    }
+```php
+// app/AppKernel.php
+public function registerBundles()
+{
+    return array(
+        // ...
+        new Shtumi\UsefulBundle\ShtumiUsefulBundle(),
+        // ...
+    );
+}
 ```
 ### Register the ShtumiUsefulBundle namespace
-```
-    // app/autoload.php
-    $loader->registerNamespaces(array(
-        'Shtumi'            => __DIR__.'/../vendor/bundles',
-        // your other namespaces
-    ));
+```php
+// app/autoload.php
+$loader->registerNamespaces(array(
+    'Shtumi'            => __DIR__.'/../vendor/bundles',
+    // your other namespaces
+));
 ```
 ### Import routes
 
 // app/config/routing.yml
 
-```
+```yaml
 shtumi_useful:
     resource: '@ShtumiUsefulBundle/Resources/config/routing.xml'
 ```
@@ -78,9 +78,9 @@ shtumi_useful:
 ### Update your configuration
 
 #### Add form theming to twig
-```
+```yaml
 twig:
-    ...
+    # ...
     form:
         resources:
             - ShtumiUsefulBundle::fields.html.twig
@@ -89,6 +89,6 @@ twig:
 Update your configuration in accordance with [using ShtumiUsefulBundle things](https://github.com/shtumi/ShtumiUsefulBundle/blob/master/Resources/doc/index.rst)
 
 ### Load jQuery to your views
-```
-    <script src="http://code.jquery.com/jquery-1.9.1.min.js" type="text/javascript"></script>
+```javascript
+<script src="http://code.jquery.com/jquery-1.9.1.min.js" type="text/javascript"></script>
 ```
