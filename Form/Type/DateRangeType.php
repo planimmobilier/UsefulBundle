@@ -1,30 +1,28 @@
 <?php
 
-/**
- * Description of DateRangeType
- *
- * @author shtumi
- */
-
 namespace Shtumi\UsefulBundle\Form\Type;
 
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\DataTransformer\ValueToStringTransformer;
 use Shtumi\UsefulBundle\Form\DataTransformer\DateRangeToValueTransformer;
 
 use Shtumi\UsefulBundle\Model\DateRange;
 
+/**
+ * Description of DateRangeType
+ * @author shtumi
+ */
 class DateRangeType extends AbstractType
 {
     private $date_format;
     private $default_interval;
     private $container;
 
-    public function __construct($container, $parameters)
+    public function __construct(ContainerInterface $container, $parameters)
     {
         $this->date_format      = $parameters['date_format'];
         $this->default_interval = $parameters['default_interval'];
@@ -44,14 +42,13 @@ class DateRangeType extends AbstractType
         return 'field';
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'shtumi_daterange';
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-
         if (!isset($options['default'])) {
             if ($options['required']){
                 $dateRange = new DateRange($this->date_format);
