@@ -46,7 +46,7 @@ class DependentFilteredEntityType extends AbstractType
 
         $entities = $this->container->getParameter('shtumi.dependent_filtered_entities');
         $options['class'] = $entities[$options['entity_alias']]['class'];
-        $options['property'] = $entities[$options['entity_alias']]['property'];
+        $options['choice_label'] = $entities[$options['entity_alias']]['choice_label'];
 
         $options['no_result_msg'] = $entities[$options['entity_alias']]['no_result_msg'];
 

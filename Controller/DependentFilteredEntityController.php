@@ -53,11 +53,11 @@ class DependentFilteredEntityController extends Controller
         if ($empty_value !== false)
             $html .= '<option value="">' . $translator->trans($empty_value) . '</option>';
 
-        $getter =  $this->getGetterName($entity_inf['property']);
+        $getter =  $this->getGetterName($entity_inf['choice_label']);
 
         foreach($results as $result)
         {
-            if ($entity_inf['property'])
+            if ($entity_inf['choice_label'])
                 $res = $result->$getter();
             else $res = (string)$result;
 

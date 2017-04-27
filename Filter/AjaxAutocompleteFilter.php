@@ -41,7 +41,7 @@ class AjaxAutocompleteFilter extends Filter
         }
 
         $entities = $this->container->getParameter('shtumi.autocomplete_entities');
-        $field = $entities[$this->getOption('entity_alias')]['property'];
+        $field = $entities[$this->getOption('entity_alias')]['choice_label'];
 
         $this->handleScalar($queryBuilder, $alias, $field, $data);
     }
