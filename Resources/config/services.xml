@@ -11,7 +11,7 @@
     <services>
 
         <service id="shtumi.useful.type.ajax_autocomplete" class="Shtumi\UsefulBundle\Form\Type\AjaxAutocompleteType">
-            <tag name="form.type" alias="shtumi_ajax_autocomplete" />
+            <tag name="form.type" alias="Shtumi\UsefulBundle\Form\Type\AjaxAutocompleteType" />
             <argument type="service" id="service_container"/>
         </service>
 
