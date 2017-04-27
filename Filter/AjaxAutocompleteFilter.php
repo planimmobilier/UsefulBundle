@@ -13,16 +13,17 @@ namespace Shtumi\UsefulBundle\Filter;
 
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Shtumi\UsefulBundle\Form\Type\AjaxAutocompleteType;
-use Sonata\AdminBundle\Form\Type\BooleanType;
+use Sonata\CoreBundle\Form\Type\BooleanType;
 use Sonata\DoctrineORMAdminBundle\Filter\Filter;
 use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class AjaxAutocompleteFilter extends Filter
 {
 
     private $container;
 
-    public function __construct($container)
+    public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
     }
@@ -72,7 +73,6 @@ class AjaxAutocompleteFilter extends Filter
 
     protected function association(ProxyQueryInterface $queryBuilder, $data)
     {
-
         $types = array(
             ClassMetadataInfo::ONE_TO_ONE,
             ClassMetadataInfo::ONE_TO_MANY,
@@ -98,11 +98,10 @@ class AjaxAutocompleteFilter extends Filter
 
             return array($this->getOption('alias', $queryBuilder->getRootAlias()), false);
 
-        };
-
+        }
     }
 
-    public function configureOptions()
+    public function getDefaultOptions()
     {
         return array(
             'mapping_type' => ClassMetadataInfo::MANY_TO_ONE,

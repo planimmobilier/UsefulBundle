@@ -2,11 +2,10 @@
 
 namespace Shtumi\UsefulBundle\Form\Type;
 
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
-use Symfony\Component\Form\Exception\FormException;
 use Shtumi\UsefulBundle\Form\DataTransformer\EntityToPropertyTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -16,7 +15,7 @@ class AjaxAutocompleteType extends AbstractType
 {
     private $container;
 
-    public function __construct($container)
+    public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
     }

@@ -3,6 +3,7 @@
 namespace Shtumi\UsefulBundle\Form\Type;
 
 use Shtumi\UsefulBundle\Form\DataTransformer\EntityToIdTransformer;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
@@ -15,7 +16,7 @@ class DependentFilteredEntityType extends AbstractType
 
     private $container;
 
-    public function __construct($container)
+    public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
     }

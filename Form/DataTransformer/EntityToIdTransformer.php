@@ -6,7 +6,6 @@ use Symfony\Component\Form\DataTransformerInterface;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\Exception\UnexpectedTypeException;
 use Symfony\Component\Form\Exception\TransformationFailedException;
-use Symfony\Component\Form\Exception\FormException;
 
 class EntityToIdTransformer implements DataTransformerInterface
 {
@@ -32,7 +31,7 @@ class EntityToIdTransformer implements DataTransformerInterface
             throw new UnexpectedTypeException($entity, 'object');
         }
         if (!$this->unitOfWork->isInIdentityMap($entity)) {
-            throw new FormException('Entities passed to the choice field must be managed');
+            throw new \Exception('Entities passed to the choice field must be managed');
         }
 
         return $entity->getId();
@@ -48,7 +47,7 @@ class EntityToIdTransformer implements DataTransformerInterface
             throw new UnexpectedTypeException($id, 'numeric' . $id);
         }
 
-        $entity = $this->em->getRepository($this->class)->findOneById($id);
+        $entity = $this->em->getRepository($this->class)->find($id);
 
         if ($entity === null) {
             throw new TransformationFailedException(sprintf('The entity with key "%s" could not be found', $id));
