@@ -15,9 +15,9 @@ class AjaxAutocompleteJSONController extends Controller
      */
     public function getJSONAction(Request $request)
     {
-        $em = $this->get('doctrine')->getManager();
+        $em = $this->getDoctrine()->getManager();
 
-        $entities = $this->get('service_container')->getParameter('shtumi.autocomplete_entities');
+        $entities = $this->getParameter('shtumi.autocomplete_entities');
 
         $entity_alias = $request->get('entity_alias');
         $entity_inf = $entities[$entity_alias];

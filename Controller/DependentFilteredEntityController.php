@@ -20,9 +20,9 @@ class DependentFilteredEntityController extends Controller
 
         $entity_alias = $request->get('entity_alias');
         $parent_id    = $request->get('parent_id');
-        $empty_value  = $request->get('empty_value');
+        $empty_value  = $request->get('placeholder');
 
-        $entities = $this->get('service_container')->getParameter('shtumi.dependent_filtered_entities');
+        $entities = $this->getParameter('shtumi.dependent_filtered_entities');
         $entity_inf = $entities[$entity_alias];
 
         if (false === $this->get('security.authorization_checker')->isGranted( $entity_inf['role'] )) {

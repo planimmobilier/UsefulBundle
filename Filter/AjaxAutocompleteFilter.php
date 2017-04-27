@@ -12,6 +12,7 @@
 namespace Shtumi\UsefulBundle\Filter;
 
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
+use Shtumi\UsefulBundle\Form\Type\AjaxAutocompleteType;
 use Sonata\AdminBundle\Form\Type\BooleanType;
 use Sonata\DoctrineORMAdminBundle\Filter\Filter;
 use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
@@ -31,7 +32,6 @@ class AjaxAutocompleteFilter extends Filter
      * @param string $alias
      * @param string $field
      * @param mixed $data
-     * @return
      */
     public function filter(ProxyQueryInterface $queryBuilder, $alias, $field, $data)
     {
@@ -102,12 +102,12 @@ class AjaxAutocompleteFilter extends Filter
 
     }
 
-    public function getDefaultOptions()
+    public function configureOptions()
     {
         return array(
             'mapping_type' => ClassMetadataInfo::MANY_TO_ONE,
             'field_name'   => false,
-            'field_type'   => 'shtumi_ajax_autocomplete',
+            'field_type'   => AjaxAutocompleteType::class,
             'field_options' => array(),
             'operator_type' => 'sonata_type_boolean',
             'operator_options' => array(),

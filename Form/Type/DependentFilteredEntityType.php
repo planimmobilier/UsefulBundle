@@ -8,6 +8,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Form;
 
 class DependentFilteredEntityType extends AbstractType
 {
@@ -31,10 +32,10 @@ class DependentFilteredEntityType extends AbstractType
 
     public function getParent()
     {
-        return 'form';
+        return Form::class;
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'shtumi_dependent_filtered_entity';
     }

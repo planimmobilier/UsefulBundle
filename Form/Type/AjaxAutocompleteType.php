@@ -10,6 +10,7 @@ use Symfony\Component\Form\Exception\FormException;
 use Shtumi\UsefulBundle\Form\DataTransformer\EntityToPropertyTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class AjaxAutocompleteType extends AbstractType
 {
@@ -29,14 +30,14 @@ class AjaxAutocompleteType extends AbstractType
         ));
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'shtumi_ajax_autocomplete';
     }
 
     public function getParent()
     {
-        return 'text';
+        return TextType::class;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
