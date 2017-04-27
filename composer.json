@@ -8,10 +8,16 @@
         {
             "name": "Mikhail Shtukin",
             "email": "shtumi@tut.by"
+        },
+        {
+            "name": "Jérémy Pasini",
+            "email": "jpasini@plan-immobilier.fr",
+            "homepage": "https://www.plan-immobilier.fr"
         }
     ],
     "require": {
-        "php": ">=5.3.2"
+        "php": ">=5.3.2",
+        "symfony/framework-bundle": ">=2.1"
     },
     "suggest": {
         "sonata-project/admin-bundle": "master-dev",
