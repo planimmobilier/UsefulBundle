@@ -3,18 +3,20 @@
 namespace Shtumi\UsefulBundle\Form\Type;
 
 use Shtumi\UsefulBundle\Form\DataTransformer\EntityToIdTransformer;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Form;
 
 class DependentFilteredEntityType extends AbstractType
 {
 
     private $container;
 
-    public function __construct($container)
+    public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
     }
@@ -31,10 +33,10 @@ class DependentFilteredEntityType extends AbstractType
 
     public function getParent()
     {
-        return 'form';
+        return Form::class;
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'shtumi_dependent_filtered_entity';
     }
@@ -44,7 +46,7 @@ class DependentFilteredEntityType extends AbstractType
 
         $entities = $this->container->getParameter('shtumi.dependent_filtered_entities');
         $options['class'] = $entities[$options['entity_alias']]['class'];
-        $options['property'] = $entities[$options['entity_alias']]['property'];
+        $options['choice_label'] = $entities[$options['entity_alias']]['choice_label'];
 
         $options['no_result_msg'] = $entities[$options['entity_alias']]['no_result_msg'];
 

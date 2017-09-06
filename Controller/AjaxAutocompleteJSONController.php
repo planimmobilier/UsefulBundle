@@ -15,9 +15,9 @@ class AjaxAutocompleteJSONController extends Controller
      */
     public function getJSONAction(Request $request)
     {
-        $em = $this->get('doctrine')->getManager();
+        $em = $this->getDoctrine()->getManager();
 
-        $entities = $this->get('service_container')->getParameter('shtumi.autocomplete_entities');
+        $entities = $this->getParameter('shtumi.autocomplete_entities');
 
         $entity_alias = $request->get('entity_alias');
         $entity_inf = $entities[$entity_alias];
@@ -41,7 +41,7 @@ class AjaxAutocompleteJSONController extends Controller
                 throw new \Exception('Unexpected value of parameter "search"');
         }
 
-        $property = $entity_inf['property'];
+        $property = $entity_inf['choice_label'];
 
         if (isset($entity_inf['case_insensitive'])) {
             $where = 'WHERE LOWER(e.' . $property . ')';
@@ -67,7 +67,7 @@ class AjaxAutocompleteJSONController extends Controller
 
         $res = array();
         foreach ($results AS $r) {
-            $res[] = $r[$entity_inf['property']];
+            $res[] = $r[$entity_inf['choice_label']];
         }
 
         return new Response(json_encode($res));

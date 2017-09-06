@@ -8,14 +8,21 @@
         {
             "name": "Mikhail Shtukin",
             "email": "shtumi@tut.by"
+        },
+        {
+            "name": "Jérémy Pasini",
+            "email": "jpasini@plan-immobilier.fr",
+            "homepage": "https://www.plan-immobilier.fr"
         }
     ],
     "require": {
-        "php": ">=5.3.2"
-    },
-    "suggest": {
-        "sonata-project/admin-bundle": "master-dev",
-        "sonata-project/doctrine-orm-admin-bundle": "master-dev"
+        "php": ">=5.3.2",
+        "symfony/symfony": ">=2.3",
+        "doctrine/orm": "~2.2,>=2.2.3",
+        "doctrine/doctrine-bundle": "~1.3",
+        "twig/extensions": ">=1.3",
+        "sonata-project/admin-bundle": ">=2.2",
+        "sonata-project/doctrine-orm-admin-bundle": ">=2.2"
     },
     "autoload": {
         "psr-0": { "Shtumi\\UsefulBundle": "" }

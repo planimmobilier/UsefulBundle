@@ -3,34 +3,30 @@
 namespace Shtumi\UsefulBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-
 use Symfony\Component\HttpFoundation\Response;
 
 class DependentFilteredEntityController extends Controller
 {
 
-    public function getOptionsAction()
+    public function getOptionsAction(Request $request)
     {
-        $request = $this->getRequest();
         $translator = $this->get('translator');
 
         $entity_alias = $request->get('entity_alias');
         $parent_id    = $request->get('parent_id');
-        $empty_value  = $request->get('empty_value');
+        $empty_value  = $request->get('placeholder');
+        $em = $this->getDoctrine()->getManager();
 
-        $entities = $this->get('service_container')->getParameter('shtumi.dependent_filtered_entities');
+        $entities = $this->getParameter('shtumi.dependent_filtered_entities');
         $entity_inf = $entities[$entity_alias];
 
         if (false === $this->get('security.authorization_checker')->isGranted( $entity_inf['role'] )) {
             throw new AccessDeniedException();
         }
 
-        $qb = $this->getDoctrine()
-                ->getRepository($entity_inf['class'])
+        $qb = $em->getRepository($entity_inf['class'])
                 ->createQueryBuilder('e')
                 ->where('e.' . $entity_inf['parent_property'] . ' = :parent_id')
                 ->orderBy('e.' . $entity_inf['order_property'], $entity_inf['order_direction'])
@@ -38,7 +34,7 @@ class DependentFilteredEntityController extends Controller
 
 
         if (null !== $entity_inf['callback']) {
-            $repository = $qb->getEntityManager()->getRepository($entity_inf['class']);
+            $repository = $em->getRepository($entity_inf['class']);
 
             if (!method_exists($repository, $entity_inf['callback'])) {
                 throw new \InvalidArgumentException(sprintf('Callback function "%s" in Repository "%s" does not exist.', $entity_inf['callback'], get_class($repository)));
@@ -57,11 +53,11 @@ class DependentFilteredEntityController extends Controller
         if ($empty_value !== false)
             $html .= '<option value="">' . $translator->trans($empty_value) . '</option>';
 
-        $getter =  $this->getGetterName($entity_inf['property']);
+        $getter =  $this->getGetterName($entity_inf['choice_label']);
 
         foreach($results as $result)
         {
-            if ($entity_inf['property'])
+            if ($entity_inf['choice_label'])
                 $res = $result->$getter();
             else $res = (string)$result;
 

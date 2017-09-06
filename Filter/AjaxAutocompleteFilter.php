@@ -12,16 +12,18 @@
 namespace Shtumi\UsefulBundle\Filter;
 
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
-use Sonata\AdminBundle\Form\Type\BooleanType;
+use Shtumi\UsefulBundle\Form\Type\AjaxAutocompleteType;
+use Sonata\CoreBundle\Form\Type\BooleanType;
 use Sonata\DoctrineORMAdminBundle\Filter\Filter;
 use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class AjaxAutocompleteFilter extends Filter
 {
 
     private $container;
 
-    public function __construct($container)
+    public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
     }
@@ -31,7 +33,6 @@ class AjaxAutocompleteFilter extends Filter
      * @param string $alias
      * @param string $field
      * @param mixed $data
-     * @return
      */
     public function filter(ProxyQueryInterface $queryBuilder, $alias, $field, $data)
     {
@@ -40,7 +41,7 @@ class AjaxAutocompleteFilter extends Filter
         }
 
         $entities = $this->container->getParameter('shtumi.autocomplete_entities');
-        $field = $entities[$this->getOption('entity_alias')]['property'];
+        $field = $entities[$this->getOption('entity_alias')]['choice_label'];
 
         $this->handleScalar($queryBuilder, $alias, $field, $data);
     }
@@ -72,7 +73,6 @@ class AjaxAutocompleteFilter extends Filter
 
     protected function association(ProxyQueryInterface $queryBuilder, $data)
     {
-
         $types = array(
             ClassMetadataInfo::ONE_TO_ONE,
             ClassMetadataInfo::ONE_TO_MANY,
@@ -98,8 +98,7 @@ class AjaxAutocompleteFilter extends Filter
 
             return array($this->getOption('alias', $queryBuilder->getRootAlias()), false);
 
-        };
-
+        }
     }
 
     public function getDefaultOptions()
@@ -107,7 +106,7 @@ class AjaxAutocompleteFilter extends Filter
         return array(
             'mapping_type' => ClassMetadataInfo::MANY_TO_ONE,
             'field_name'   => false,
-            'field_type'   => 'shtumi_ajax_autocomplete',
+            'field_type'   => AjaxAutocompleteType::class,
             'field_options' => array(),
             'operator_type' => 'sonata_type_boolean',
             'operator_options' => array(),

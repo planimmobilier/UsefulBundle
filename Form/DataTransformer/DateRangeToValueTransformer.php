@@ -3,8 +3,6 @@
 namespace Shtumi\UsefulBundle\Form\DataTransformer;
 
 use Symfony\Component\Form\DataTransformerInterface;
-use Symfony\Component\Form\Exception\UnexpectedTypeException;
-use Symfony\Component\Form\Exception\TransformationFailedException;
 
 use Shtumi\UsefulBundle\Model\DateRange;
 

@@ -2,20 +2,20 @@
 
 namespace Shtumi\UsefulBundle\Form\Type;
 
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
-use Symfony\Component\Form\Exception\FormException;
 use Shtumi\UsefulBundle\Form\DataTransformer\EntityToPropertyTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class AjaxAutocompleteType extends AbstractType
 {
     private $container;
 
-    public function __construct($container)
+    public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
     }
@@ -24,19 +24,19 @@ class AjaxAutocompleteType extends AbstractType
         $resolver->setDefaults(array(
             'entity_alias' => null,
             'class' => null,
-            'property' => null,
+            'choice_label' => null,
             'compound' => false,
         ));
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'shtumi_ajax_autocomplete';
     }
 
     public function getParent()
     {
-        return 'text';
+        return TextType::class;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -45,13 +45,13 @@ class AjaxAutocompleteType extends AbstractType
 
   
         $options['class'] = $entities[$options['entity_alias']]['class'];
-        $options['property'] = $entities[$options['entity_alias']]['property'];
+        $options['choice_label'] = $entities[$options['entity_alias']]['choice_label'];
 
 
         $builder->addViewTransformer(new EntityToPropertyTransformer(
             $this->container->get('doctrine')->getManager(),
             $options['class'],
-            $options['property']
+            $options['choice_label']
         ), true);
 
         $builder->setAttribute('entity_alias', $options['entity_alias']);
