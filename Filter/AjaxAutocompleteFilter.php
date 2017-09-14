@@ -1,5 +1,4 @@
 <?php
-
 /*
  * This file is part of the Sonata package.
  *
@@ -9,20 +8,27 @@
  * file that was distributed with this source code.
  */
 
-namespace Shtumi\UsefulBundle\Filter;
+namespace Resomedia\UsefulBundle\Filter;
 
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
-use Shtumi\UsefulBundle\Form\Type\AjaxAutocompleteType;
+use Resomedia\UsefulBundle\Form\Type\AjaxAutocompleteType;
 use Sonata\CoreBundle\Form\Type\BooleanType;
 use Sonata\DoctrineORMAdminBundle\Filter\Filter;
 use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
+/**
+ * Class AjaxAutocompleteFilter
+ * @package Resomedia\UsefulBundle\Filter
+ */
 class AjaxAutocompleteFilter extends Filter
 {
-
     private $container;
 
+    /**
+     * AjaxAutocompleteFilter constructor.
+     * @param ContainerInterface $container
+     */
     public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
@@ -46,6 +52,12 @@ class AjaxAutocompleteFilter extends Filter
         $this->handleScalar($queryBuilder, $alias, $field, $data);
     }
 
+    /**
+     * @param $queryBuilder
+     * @param $alias
+     * @param $field
+     * @param $data
+     */
     protected function handleScalar($queryBuilder, $alias, $field, $data)
     {
 
@@ -67,10 +79,13 @@ class AjaxAutocompleteFilter extends Filter
 
             $queryBuilder->setParameter($this->getName(), $data['value']->getId());
         }
-
-
     }
 
+    /**
+     * @param ProxyQueryInterface $queryBuilder
+     * @param $data
+     * @return array
+     */
     protected function association(ProxyQueryInterface $queryBuilder, $data)
     {
         $types = array(
@@ -101,6 +116,9 @@ class AjaxAutocompleteFilter extends Filter
         }
     }
 
+    /**
+     * @return array
+     */
     public function getDefaultOptions()
     {
         return array(
@@ -114,6 +132,9 @@ class AjaxAutocompleteFilter extends Filter
         );
     }
 
+    /**
+     * @return array
+     */
     public function getRenderSettings()
     {
         $options = array_merge($this->getFieldOptions(), array('entity_alias' => $this->getOption('entity_alias')));

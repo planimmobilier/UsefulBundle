@@ -1,17 +1,23 @@
 <?php
 
-namespace Shtumi\UsefulBundle\Controller;
+namespace Resomedia\UsefulBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
+/**
+ * Class AjaxAutocompleteJSONController
+ * @package Resomedia\UsefulBundle\Controller
+ */
 class AjaxAutocompleteJSONController extends Controller
 {
     /**
      * @param Request $request
      * @return Response
      * @throws \Exception
+     * @Route("/useful_ajaxautocomplete", name="useful_ajaxautocomplete")
      */
     public function getJSONAction(Request $request)
     {

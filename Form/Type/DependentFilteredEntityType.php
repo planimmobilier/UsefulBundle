@@ -1,8 +1,8 @@
 <?php
 
-namespace Shtumi\UsefulBundle\Form\Type;
+namespace Resomedia\UsefulBundle\Form\Type;
 
-use Shtumi\UsefulBundle\Form\DataTransformer\EntityToIdTransformer;
+use Resomedia\UsefulBundle\Form\DataTransformer\EntityToIdTransformer;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -11,16 +11,26 @@ use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Form;
 
+/**
+ * Class DependentFilteredEntityType
+ * @package Resomedia\UsefulBundle\Form\Type
+ */
 class DependentFilteredEntityType extends AbstractType
 {
-
     private $container;
 
+    /**
+     * DependentFilteredEntityType constructor.
+     * @param ContainerInterface $container
+     */
     public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
     }
 
+    /**
+     * @param OptionsResolver $resolver
+     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
@@ -31,16 +41,26 @@ class DependentFilteredEntityType extends AbstractType
         ));
     }
 
+    /**
+     * @return string
+     */
     public function getParent()
     {
         return Form::class;
     }
 
+    /**
+     * @return string
+     */
     public function getBlockPrefix()
     {
-        return 'shtumi_dependent_filtered_entity';
+        return 'useful_dependent_filtered_entity';
     }
 
+    /**
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 
@@ -59,9 +79,13 @@ class DependentFilteredEntityType extends AbstractType
         $builder->setAttribute("entity_alias", $options['entity_alias']);
         $builder->setAttribute("no_result_msg", $options['no_result_msg']);
         $builder->setAttribute("empty_value", $options['empty_value']);
-
     }
 
+    /**
+     * @param FormView $view
+     * @param FormInterface $form
+     * @param array $options
+     */
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
         $view->vars['parent_field'] = $form->getConfig()->getAttribute('parent_field');

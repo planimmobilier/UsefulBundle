@@ -1,15 +1,25 @@
 <?php
 
-namespace Shtumi\UsefulBundle\Controller;
+namespace Resomedia\UsefulBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Response;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
+/**
+ * Class DependentFilteredEntityController
+ * @package Resomedia\UsefulBundle\Controller
+ */
 class DependentFilteredEntityController extends Controller
 {
 
+    /**
+     * @param Request $request
+     * @return Response
+     * @Route("/secure/useful_dependent_filtered_entity", name="useful_dependent_filtered_entity")
+     */
     public function getOptionsAction(Request $request)
     {
         $translator = $this->get('translator');
@@ -68,6 +78,10 @@ class DependentFilteredEntityController extends Controller
 
     }
 
+    /**
+     * @param $property
+     * @return string
+     */
     private function getGetterName($property)
     {
         $name = "get";

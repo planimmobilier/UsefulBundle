@@ -1,20 +1,24 @@
 <?php
 
-namespace Shtumi\UsefulBundle\DQL;
+namespace Resomedia\UsefulBundle\DQL;
 
 use Doctrine\ORM\Query\AST\Functions\FunctionNode;
 use Doctrine\ORM\Query\Parser;
 use Doctrine\ORM\Query\SqlWalker;
 use Doctrine\ORM\Query\Lexer;
 
-
+/**
+ * Class Round
+ * @package Resomedia\UsefulBundle\DQL
+ */
 class Round extends FunctionNode
 {
-    // (1)
-
     public $firstDateExpression = null;
     public $secondDateExpression = null;
 
+    /**
+     * @param Parser $parser
+     */
     public function parse(Parser $parser)
     {
         $parser->match(Lexer::T_IDENTIFIER); // (2)
@@ -28,6 +32,10 @@ class Round extends FunctionNode
 
     }
 
+    /**
+     * @param SqlWalker $sqlWalker
+     * @return string
+     */
     public function getSql(SqlWalker $sqlWalker)
     {
         return 'ROUND(' .

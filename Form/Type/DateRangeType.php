@@ -1,6 +1,6 @@
 <?php
 
-namespace Shtumi\UsefulBundle\Form\Type;
+namespace Resomedia\UsefulBundle\Form\Type;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\AbstractType;
@@ -8,9 +8,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Shtumi\UsefulBundle\Form\DataTransformer\DateRangeToValueTransformer;
-
-use Shtumi\UsefulBundle\Model\DateRange;
+use Resomedia\UsefulBundle\Form\DataTransformer\DateRangeToValueTransformer;
+use Resomedia\UsefulBundle\Model\DateRange;
 
 /**
  * Description of DateRangeType
@@ -22,6 +21,11 @@ class DateRangeType extends AbstractType
     private $default_interval;
     private $container;
 
+    /**
+     * DateRangeType constructor.
+     * @param ContainerInterface $container
+     * @param $parameters
+     */
     public function __construct(ContainerInterface $container, $parameters)
     {
         $this->date_format      = $parameters['date_format'];
@@ -29,6 +33,9 @@ class DateRangeType extends AbstractType
         $this->container        = $container;
     }
 
+    /**
+     * @param OptionsResolver $resolver
+     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
@@ -37,16 +44,26 @@ class DateRangeType extends AbstractType
         ));
     }
 
+    /**
+     * @return string
+     */
     public function getParent()
     {
         return 'field';
     }
 
+    /**
+     * @return string
+     */
     public function getBlockPrefix()
     {
-        return 'shtumi_daterange';
+        return 'useful_daterange';
     }
 
+    /**
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         if (!isset($options['default'])) {
@@ -78,6 +95,11 @@ class DateRangeType extends AbstractType
         $builder->setAttribute('datepicker_date_format', $datepicker_format);
     }
 
+    /**
+     * @param FormView $view
+     * @param FormInterface $form
+     * @param array $options
+     */
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
         $view->vars['datepicker_date_format'] = $form->getConfig()->getAttribute('datepicker_date_format');

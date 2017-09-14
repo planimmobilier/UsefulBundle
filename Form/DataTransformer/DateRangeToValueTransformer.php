@@ -1,22 +1,34 @@
 <?php
 
-namespace Shtumi\UsefulBundle\Form\DataTransformer;
+namespace Resomedia\UsefulBundle\Form\DataTransformer;
 
 use Symfony\Component\Form\DataTransformerInterface;
+use Resomedia\UsefulBundle\Model\DateRange;
 
-use Shtumi\UsefulBundle\Model\DateRange;
-
+/**
+ * Class DateRangeToValueTransformer
+ * @package Resomedia\UsefulBundle\Form\DataTransformer
+ */
 class DateRangeToValueTransformer implements DataTransformerInterface
 {
     private $date_format;
     private $daterange_separator;
 
+    /**
+     * DateRangeToValueTransformer constructor.
+     * @param null $date_format
+     * @param string $daterange_separator
+     */
     public function __construct($date_format=null, $daterange_separator=' - ')
     {
         $this->date_format = $date_format;
         $this->daterange_separator = $daterange_separator;
     }
 
+    /**
+     * @param mixed $dateRange
+     * @return string
+     */
     public function transform($dateRange)
     {
 
@@ -32,9 +44,12 @@ class DateRangeToValueTransformer implements DataTransformerInterface
         $value = (string)$dateRange;
 
         return $value;
-
     }
 
+    /**
+     * @param mixed $value
+     * @return null|DateRange
+     */
     public function reverseTransform($value)
     {
         if ('' === $value || null === $value) {

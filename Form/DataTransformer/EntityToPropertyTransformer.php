@@ -1,11 +1,15 @@
 <?php
 
-namespace Shtumi\UsefulBundle\Form\DataTransformer;
+namespace Resomedia\UsefulBundle\Form\DataTransformer;
 
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\DataTransformerInterface;
-use Doctrine\ORM\EntityManager;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 
+/**
+ * Class EntityToPropertyTransformer
+ * @package Resomedia\UsefulBundle\Form\DataTransformer
+ */
 class EntityToPropertyTransformer implements DataTransformerInterface
 {
     protected $em;
@@ -13,7 +17,13 @@ class EntityToPropertyTransformer implements DataTransformerInterface
     protected $property;
     protected $unitOfWork;
 
-    public function __construct(EntityManager $em, $class, $property)
+    /**
+     * EntityToPropertyTransformer constructor.
+     * @param ObjectManager $em
+     * @param $class
+     * @param $property
+     */
+    public function __construct(ObjectManager $em, $class, $property)
     {
         $this->em = $em;
         $this->unitOfWork = $this->em->getUnitOfWork();
@@ -22,6 +32,11 @@ class EntityToPropertyTransformer implements DataTransformerInterface
 
     }
 
+    /**
+     * @param mixed $entity
+     * @return mixed|null
+     * @throws \Exception
+     */
     public function transform($entity)
     {
         if (null === $entity) {
@@ -41,7 +56,10 @@ class EntityToPropertyTransformer implements DataTransformerInterface
         return current($this->unitOfWork->getEntityIdentifier($entity));
     }
 
-
+    /**
+     * @param mixed $prop_value
+     * @return null|object
+     */
     public function reverseTransform($prop_value)
     {
         if (!$prop_value) {

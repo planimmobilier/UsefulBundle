@@ -1,29 +1,42 @@
 <?php
 
-namespace Shtumi\UsefulBundle\Form\DataTransformer;
+namespace Resomedia\UsefulBundle\Form\DataTransformer;
 
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\DataTransformerInterface;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\Exception\UnexpectedTypeException;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
+/**
+ * Class EntityToIdTransformer
+ * @package Resomedia\UsefulBundle\Form\DataTransformer
+ */
 class EntityToIdTransformer implements DataTransformerInterface
 {
-
     protected $em;
     protected $class;
     protected $unitOfWork;
 
-    public function __construct(EntityManager $em, $class)
+    /**
+     * EntityToIdTransformer constructor.
+     * @param ObjectManager $em
+     * @param $class
+     */
+    public function __construct(ObjectManager $em, $class)
     {
         $this->em = $em;
         $this->unitOfWork = $this->em->getUnitOfWork();
         $this->class = $class;
     }
 
+    /**
+     * @param mixed $entity
+     * @return string
+     * @throws \Exception
+     */
     public function transform($entity)
     {
-
         if (null === $entity || '' === $entity) {
             return 'null';
         }
@@ -37,6 +50,10 @@ class EntityToIdTransformer implements DataTransformerInterface
         return $entity->getId();
     }
 
+    /**
+     * @param mixed $id
+     * @return null|object
+     */
     public function reverseTransform($id)
     {
         if ('' === $id || null === $id) {
