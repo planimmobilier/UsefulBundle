@@ -1,0 +1,24 @@
+services:
+    resomedia.useful.type.ajax_autocomplete:
+        class: Resomedia\UsefulBundle\Form\Type\AjaxAutocompleteType
+        arguments: ['@service_container']
+        tags:
+            - { name: form.type, alias: Resomedia\UsefulBundle\Form\Type\DependentFilteredEntityType }
+    resomedia.useful.type.dependent_filtered_entity:
+        class: Resomedia\UsefulBundle\Form\Type\AjaxAutocompleteType
+        arguments: ['@service_container']
+        tags:
+            - { name: form.type, alias: useful_dependent_filtered_entity }
+    resomedia.useful.type.daterange:
+        class: Resomedia\UsefulBundle\Form\Type\DateRangeType
+        arguments: ['@service_container', '%useful.date_range%']
+        tags:
+            - { name: form.type, alias: useful_daterange }
+    resomedia.useful.orm.filter.type.ajax_autocomplete:
+        class: Resomedia\UsefulBundle\Filter\AjaxAutocompleteFilter
+        arguments: ['@service_container']
+        tags:
+            - { name: sonata.admin.filter.type, alias: useful_ajax_autocomplete }
+    resomedia.useful.daterange:
+        class: Resomedia\UsefulBundle\Service\DateRangeManager
+        arguments: ['%useful.date_range%']
