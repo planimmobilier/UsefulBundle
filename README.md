@@ -1,94 +1,96 @@
-ShtumiUsefulBundle - make typical things easier
+ResomediaUsefulBundle 3 - autocomplete easy
 ===============================================
 
-ShtumiUsefulBundle provides some useful things that needed almost in every project. It's:
-
-**Form types**:
-
-* [Ajax Autocomplete form type](https://github.com/shtumi/ShtumiUsefulBundle/blob/master/Resources/doc/ajax_autocomplete.rst) (useful when you operate with thousands and hundred thousands records [for instance: users])
-
-* [Dependent filtered form type](https://github.com/shtumi/ShtumiUsefulBundle/blob/master/Resources/doc/dependent_filtered_entity.rst) (useful when you need operate dependent entities in one form (for instance: countries/regions))
-
-* [Date range form type](https://github.com/shtumi/ShtumiUsefulBundle/blob/master/Resources/doc/daterange.rst) (allows you select date range with JS calendar and take valid DateRange object)
-
-**[DQL extra functions](https://github.com/shtumi/ShtumiUsefulBundle/blob/master/Resources/doc/dql_functions.rst)**:
-
-* IF
-
-* IFNULL
-
-* ROUND
-
-* DATE_DIFF
-
-You can use Ajax autocomplete form type as a filter type with [SonataAdminBundle](https://github.com/sonata-project/SonataAdminBundle)
-
-
+Fork from ShtumiUsefulBundle
 
 ## Installation
 
 ### Add the following lines to your  `deps` file and then run `php bin/vendors install`:
 
 ```
-[ShtumiUsefulBundle]
-    git=https://github.com/shtumi/ShtumiUsefulBundle.git
-    target=bundles/Shtumi/UsefulBundle
-```
-
-For Symfony 2.0 please use branch 2.0 of ShtumiUsefulBundle:
+"resomedia/useful-bundle": "3.*"
 
 ```
-[ShtumiUsefulBundle]
-    git=https://github.com/shtumi/ShtumiUsefulBundle.git
-    target=bundles/Shtumi/UsefulBundle
-    version=origin/2.0
-```
 
-You also should install [SonataAdminBundle](https://github.com/sonata-project/SonataAdminBundle) and all dependencies for it.
-
-### Add ShtumiUsefulBundle to your application kernel
+### Add ResomediaUsefulBundle to your application kernel
 ```
     // app/AppKernel.php
     public function registerBundles()
     {
         return array(
             // ...
-            new Shtumi\UsefulBundle\ShtumiUsefulBundle(),
+            new Resomedia\UsefulBundle\ResomediaUsefulBundle(),
             // ...
         );
     }
 ```
-### Register the ShtumiUsefulBundle namespace
-```
-    // app/autoload.php
-    $loader->registerNamespaces(array(
-        'Shtumi'            => __DIR__.'/../vendor/bundles',
-        // your other namespaces
-    ));
-```
+
 ### Import routes
 
-// app/config/routing.yml
-
 ```
-shtumi_useful:
-    resource: '@ShtumiUsefulBundle/Resources/config/routing.xml'
+resomedia_useful:
+    resource: "@ResomediaUsefulBundle/Controller/"
+    type: annotation
 ```
 
-### Update your configuration
-
-#### Add form theming to twig
+### Add form theming to twig (you can override this view)
 ```
 twig:
     ...
-    form:
-        resources:
-            - ShtumiUsefulBundle::fields.html.twig
+    form_theme:
+            - 'ResomediaUsefulBundle:Form:fields_useful.html.twig'
 ```
 
-Update your configuration in accordance with [using ShtumiUsefulBundle things](https://github.com/shtumi/ShtumiUsefulBundle/blob/master/Resources/doc/index.rst)
+### Load jQuery to your views and this
+```
+    <script type="text/javascript" src="{{ asset('bundles/resomediauseful/js/bootstrap3-typeahead.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/resomediauseful/js/useful.js') }}"></script>
+```
 
-### Load jQuery to your views
-```
-    <script src="http://code.jquery.com/jquery-1.9.1.min.js" type="text/javascript"></script>
-```
+###Configuration
+
+// app/config/config.yml
+
+
+    resomedia_useful:
+        autocomplete_entities:
+            users:
+                class: AcmeDemoBundle:User
+                choice_label: fullname
+                role: ROLE_ADMIN
+                property: email
+                where: 'activate = 1'
+                encrypted: true
+
+            products:
+                class: AcmeDemoBundle:Product
+                choice_label: name
+                role: ROLE_ADMIN
+                search: contains|ends_with|begins_with
+                case_insensitive: true
+
+- **class** - Doctrine model.
+- **role** - User role to use form type. Default: *IS_AUTHENTICATED_ANONYMOUSLY*. It needs for security reason.
+- **choice_label** - Property that will be prompted by autocomplete. Default: *title*.
+- **search** - LIKE format to get autocomplete values. You can use:
+   - *begins_with* - LIKE 'value%' (**default**)
+   - *ends_with* - LIKE '%value'
+   - *contains*  - LIKE '%value%'
+- **where** - your condition
+- **case_insensitive** - Whether or not matching should be case sensitive or not
+- **encrypted** - true / false, if your field is encrypt. (**Soon**)
+
+###Usage
+
+    $formBuilder->add('user', AjaxAutocompleteType::class, array(
+        'entity_alias' => 'users',
+        'label' => 'search user',
+        'required' => false,
+        'attr' => array('class' => 'form-control')
+    ));
+
+###V3.0
+It is a lite version with only ajax autocomplete.
+But the documentation is up to date and add symfony3 compatibility.
+For more tools in UsefulBundle check ShtumiUsefulBundle.
+Clean code

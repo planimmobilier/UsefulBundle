@@ -1,0 +1,6 @@
+services:
+    resomedia.useful.type.ajax_autocomplete:
+        class: Resomedia\UsefulBundle\Form\Type\AjaxAutocompleteType
+        arguments: ['@service_container']
+        tags:
+            - { name: form.type, alias: Resomedia\UsefulBundle\Form\Type\AjaxAutocompleteType }

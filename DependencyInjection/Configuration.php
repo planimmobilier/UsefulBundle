@@ -1,6 +1,6 @@
 <?php
 
-namespace Shtumi\UsefulBundle\DependencyInjection;
+namespace Resomedia\UsefulBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -18,7 +18,7 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('shtumi_useful');
+        $rootNode = $treeBuilder->root('resomedia_useful');
 
         $rootNode
 
@@ -44,61 +44,9 @@ class Configuration implements ConfigurationInterface
                             ->end()
                             ->scalarNode('where')
                             ->end()
-			    ->booleanNode('case_insensitive')
+			                ->booleanNode('case_insensitive')
                                  ->defaultTrue()
                             ->end()
-                        ->end()
-                    ->end()
-                ->end()
-
-                ->arrayNode('dependent_filtered_entities')
-                    ->useAttributeAsKey('id')
-                    ->prototype('array')
-                        ->children()
-                            ->scalarNode('class')
-                                ->cannotBeEmpty()
-                            ->end()
-                            ->scalarNode('parent_property')
-                                ->cannotBeEmpty()
-                            ->end()
-                            ->scalarNode('role')
-                                ->defaultValue('IS_AUTHENTICATED_ANONYMOUSLY')
-                                ->cannotBeEmpty()
-                            ->end()
-                            ->scalarNode('no_result_msg')
-                                ->defaultValue('No results were found')
-                                ->cannotBeEmpty()
-                            ->end()
-                            ->scalarNode('order_property')
-                                ->defaultValue('id')
-                                ->cannotBeEmpty()
-                            ->end()
-                            ->scalarNode('order_direction')
-                                ->defaultValue('ASC')
-                                ->cannotBeEmpty()
-                            ->end()
-                            ->scalarNode('choice_label')
-                                ->defaultValue(null)
-                                ->cannotBeEmpty()
-                            ->end()
-                            ->scalarNode('callback')
-                                ->defaultValue(null)
-                                ->cannotBeEmpty()
-                            ->end()
-                        ->end()
-                    ->end()
-                ->end()
-
-                ->arrayNode('date_range')
-                    ->addDefaultsIfNotSet()
-                    ->children()
-                        ->scalarNode('date_format')
-                            ->defaultValue('d/m/Y')
-                            ->cannotBeEmpty()
-                        ->end()
-                        ->scalarNode('default_interval')
-                            ->defaultValue('P30D')
-                            ->cannotBeEmpty()
                         ->end()
                     ->end()
                 ->end()

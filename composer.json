@@ -1,7 +1,7 @@
 {
     "name": "resomedia/useful-bundle",
     "type": "symfony-bundle",
-    "description": "Symfony ShtumiUsefulBundle",
+    "description": "Symfony ResomediaUsefulBundle",
     "keywords": ["Ajax Autocomplete form type", "Dependent filtered form type", "daterange", "shtumi"],
     "license": "MIT",
     "authors": [
@@ -20,12 +20,11 @@
         "symfony/symfony": ">=2.3",
         "doctrine/orm": "~2.2,>=2.2.3",
         "doctrine/doctrine-bundle": "~1.3",
-        "twig/extensions": ">=1.3",
-        "sonata-project/admin-bundle": ">=2.2",
-        "sonata-project/doctrine-orm-admin-bundle": ">=2.2"
+        "twig/extensions": ">=1.3"
     },
     "autoload": {
-        "psr-0": { "Shtumi\\UsefulBundle": "" }
-    },
-    "target-dir": "Shtumi/UsefulBundle"
+        "psr-0": {
+            "Resomedia\\UsefulBundle\\": ""
+        }
+    }
 }
