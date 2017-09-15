@@ -23,9 +23,6 @@ class ResomediaUsefulExtension extends Extension
         $config = $this->processConfiguration($configuration, $configs);
 
         $container->setParameter('useful.autocomplete_entities', $config['autocomplete_entities']);
-        $container->setParameter('useful.dependent_filtered_entities', $config['dependent_filtered_entities']);
-        $container->setParameter('useful.date_range', $config['date_range']);
-
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');

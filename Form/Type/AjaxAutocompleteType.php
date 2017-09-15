@@ -76,6 +76,11 @@ class AjaxAutocompleteType extends AbstractType
         ), true);
 
         $builder->setAttribute('entity_alias', $options['entity_alias']);
+        if (array_key_exists('attr', $options) && array_key_exists('class', $options['attr'])) {
+            $builder->setAttribute('attr_class', $options['attr']['class']);
+        } else {
+            $builder->setAttribute('attr_class', '');
+        }
     }
 
     /**
@@ -86,5 +91,6 @@ class AjaxAutocompleteType extends AbstractType
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
         $view->vars['entity_alias'] = $form->getConfig()->getAttribute('entity_alias');
+        $view->vars['attr_class'] = $form->getConfig()->getAttribute('attr_class');
     }
 }
