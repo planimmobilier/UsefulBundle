@@ -35,8 +35,6 @@ You can use Ajax autocomplete form type as a filter type with [SonataAdminBundle
     target=bundles/Shtumi/UsefulBundle
 ```
 
-For Symfony 2.0 please use branch 2.0 of ShtumiUsefulBundle:
-
 ```
 [ShtumiUsefulBundle]
     git=https://github.com/shtumi/ShtumiUsefulBundle.git

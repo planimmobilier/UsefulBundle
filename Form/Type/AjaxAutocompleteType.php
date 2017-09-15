@@ -62,7 +62,7 @@ class AjaxAutocompleteType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $entities = $this->container->getParameter('shtumi.autocomplete_entities');
+        $entities = $this->container->getParameter('useful.autocomplete_entities');
 
   
         $options['class'] = $entities[$options['entity_alias']]['class'];

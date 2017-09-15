@@ -64,7 +64,7 @@ class DependentFilteredEntityType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 
-        $entities = $this->container->getParameter('shtumi.dependent_filtered_entities');
+        $entities = $this->container->getParameter('useful.dependent_filtered_entities');
         $options['class'] = $entities[$options['entity_alias']]['class'];
         $options['choice_label'] = $entities[$options['entity_alias']]['choice_label'];
 

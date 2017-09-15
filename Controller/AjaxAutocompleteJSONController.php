@@ -23,7 +23,7 @@ class AjaxAutocompleteJSONController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $this->getParameter('shtumi.autocomplete_entities');
+        $entities = $this->getParameter('useful.autocomplete_entities');
 
         $entity_alias = $request->get('entity_alias');
         $entity_inf = $entities[$entity_alias];

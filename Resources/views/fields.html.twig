@@ -95,11 +95,8 @@
     </script>
 {% endblock %}
 {% block useful_daterange_widget %}
-    <style type="text/css">@import "{{ asset('bundles/resomediauseful/js/datepicker/jquery.datepick.css') }}";</style>
-    <style type="text/css">@import "{{ asset('bundles/resomediauseful/css/daterange.css') }}";</style>
-    <script type="text/javascript" src="{{ asset('bundles/resomediauseful/js/datepicker/jquery.datepick.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('bundles/resomediauseful/js/datepicker/jquery.datepick-' ~ locale[0:2] ~ '.js') }}"></script>
-    <input {{ block('widget_attributes') }} value="{{ value }}" class="shtumi-daterange">
+
+    <input {{ block('widget_attributes') }} value="{{ value }}" class="useful-daterange" />
     <script>
         jQuery('input#{{ form.vars.id }}').datepick({
             rangeSelect: true, monthsToShow: 2, showTrigger: '#calImg', dateFormat: '{{ datepicker_date_format }}' });

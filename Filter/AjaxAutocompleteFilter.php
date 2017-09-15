@@ -37,16 +37,15 @@ class AjaxAutocompleteFilter extends Filter
     /**
      * @param ProxyQueryInterface $queryBuilder
      * @param string $alias
-     * @param string $field
      * @param mixed $data
      */
-    public function filter(ProxyQueryInterface $queryBuilder, $alias, $field, $data)
+    public function filter(ProxyQueryInterface $queryBuilder, $alias, $data)
     {
         if (!$data || !is_array($data) || !array_key_exists('value', $data)) {
             return;
         }
 
-        $entities = $this->container->getParameter('shtumi.autocomplete_entities');
+        $entities = $this->container->getParameter('useful.autocomplete_entities');
         $field = $entities[$this->getOption('entity_alias')]['choice_label'];
 
         $this->handleScalar($queryBuilder, $alias, $field, $data);
@@ -83,10 +82,9 @@ class AjaxAutocompleteFilter extends Filter
 
     /**
      * @param ProxyQueryInterface $queryBuilder
-     * @param $data
      * @return array
      */
-    protected function association(ProxyQueryInterface $queryBuilder, $data)
+    protected function association(ProxyQueryInterface $queryBuilder)
     {
         $types = array(
             ClassMetadataInfo::ONE_TO_ONE,
