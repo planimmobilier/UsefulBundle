@@ -92,4 +92,5 @@ twig:
 ###V3.0
 It is a lite version with only ajax autocomplete.
 But the documentation is up to date and add symfony3 compatibility.
-For more tools in UsefulBundle check ShtumiUsefulBundle
+For more tools in UsefulBundle check ShtumiUsefulBundle.
+Clean code
