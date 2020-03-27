@@ -2,7 +2,8 @@
 
 namespace Resomedia\UsefulBundle\Form\Type;
 
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Doctrine\ORM\EntityManager;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
@@ -17,15 +18,18 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
  */
 class AjaxAutocompleteType extends AbstractType
 {
-    private $container;
+    private $parameterBag;
+    private $em;
 
     /**
      * AjaxAutocompleteType constructor.
-     * @param ContainerInterface $container
+     * @param ParameterBagInterface $parameterBag
+     * @param EntityManager $em
      */
-    public function __construct(ContainerInterface $container)
+    public function __construct(ParameterBagInterface $parameterBag, EntityManager $em)
     {
-        $this->container = $container;
+        $this->parameterBag = $parameterBag;
+        $this->em = $em;
     }
 
     /**
@@ -62,7 +66,7 @@ class AjaxAutocompleteType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $entities = $this->container->getParameter('useful.autocomplete_entities');
+        $entities = $this->parameterBag->get('useful.autocomplete_entities');
 
   
         $options['class'] = $entities[$options['entity_alias']]['class'];
@@ -70,7 +74,7 @@ class AjaxAutocompleteType extends AbstractType
 
 
         $builder->addViewTransformer(new EntityToPropertyTransformer(
-            $this->container->get('doctrine')->getManager(),
+            $this->em,
             $options['class'],
             $options['choice_label']
         ), true);

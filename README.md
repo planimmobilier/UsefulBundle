@@ -8,21 +8,18 @@ Fork from ShtumiUsefulBundle
 ### Add the following lines to your  `deps` file and then run `php bin/vendors install`:
 
 ```
-"resomedia/useful-bundle": "3.*"
+"resomedia/useful-bundle": "4.*"
 
 ```
 
 ### Add ResomediaUsefulBundle to your application kernel
 ```
-    // app/AppKernel.php
-    public function registerBundles()
-    {
-        return array(
-            // ...
-            new Resomedia\UsefulBundle\ResomediaUsefulBundle(),
-            // ...
-        );
-    }
+    // config/bundles.php
+    return [
+        // ...
+        Resomedia\UsefulBundle\ResomediaUsefulBundle::class => ['all' => true],
+        // ...
+    ];
 ```
 
 ### Import routes
@@ -50,25 +47,24 @@ twig:
 ###Configuration
 
 // app/config/config.yml
+```
+resomedia_useful:
+    autocomplete_entities:
+        users:
+            class: AcmeDemoBundle:User
+            choice_label: fullname
+            role: ROLE_ADMIN
+            property: email
+            where: 'activate = 1'
+            encrypted: true
 
-
-    resomedia_useful:
-        autocomplete_entities:
-            users:
-                class: AcmeDemoBundle:User
-                choice_label: fullname
-                role: ROLE_ADMIN
-                property: email
-                where: 'activate = 1'
-                encrypted: true
-
-            products:
-                class: AcmeDemoBundle:Product
-                choice_label: name
-                role: ROLE_ADMIN
-                search: contains|ends_with|begins_with
-                case_insensitive: true
-
+        products:
+            class: AcmeDemoBundle:Product
+            choice_label: name
+            role: ROLE_ADMIN
+            search: contains|ends_with|begins_with
+            case_insensitive: true
+```
 - **class** - Doctrine model.
 - **role** - User role to use form type. Default: *IS_AUTHENTICATED_ANONYMOUSLY*. It needs for security reason.
 - **choice_label** - Property that will be prompted by autocomplete. Default: *title*.
@@ -93,4 +89,5 @@ twig:
 It is a lite version with only ajax autocomplete.
 But the documentation is up to date and add symfony3 compatibility.
 For more tools in UsefulBundle check ShtumiUsefulBundle.
-Clean code
+###V4.0
+Add symfony4 compatibility.
