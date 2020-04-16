@@ -17,11 +17,9 @@ class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder()
     {
-        $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('resomedia_useful');
-
+        $treeBuilder = new TreeBuilder('resomedia_useful');
+        $rootNode = $treeBuilder->getRootNode();
         $rootNode
-
             ->children()
                 ->arrayNode('autocomplete_entities')
                     ->useAttributeAsKey('id')
