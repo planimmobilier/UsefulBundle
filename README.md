@@ -35,7 +35,7 @@ resomedia_useful:
 twig:
     ...
     form_theme:
-            - 'ResomediaUsefulBundle:Form:fields_useful.html.twig'
+            - 'ResomediaUseful/Form/fields_useful.html.twig'
 ```
 
 ### Load jQuery to your views and this
