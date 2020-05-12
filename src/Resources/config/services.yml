@@ -1,4 +1,5 @@
 services:
     Resomedia\UsefulBundle\Form\Type\AjaxAutocompleteType:
+        arguments: ['@parameter_bag', '@doctrine.orm.entity_manager']
         tags:
             - { name: form.type, alias: Resomedia\UsefulBundle\Form\Type\AjaxAutocompleteType }
