@@ -1,4 +1,11 @@
 services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+    Resomedia\UsefulBundle\Controller:
+        resource: '../../Controller/*'
+    Resomedia\UsefulBundle\Form\DataTransformer:
+        resource: '../../Form/DataTransformer/*'
     Resomedia\UsefulBundle\Form\Type\AjaxAutocompleteType:
         arguments: ['@parameter_bag', '@doctrine.orm.entity_manager']
         tags:
