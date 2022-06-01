@@ -2,7 +2,7 @@
 
 namespace Resomedia\UsefulBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -11,7 +11,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
  * Class AjaxAutocompleteJSONController
  * @package Resomedia\UsefulBundle\Controller
  */
-class AjaxAutocompleteJSONController extends Controller
+class AjaxAutocompleteJSONController extends AbstractController
 {
     /**
      * @param Request $request
