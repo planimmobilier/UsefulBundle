@@ -11,7 +11,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
  * Class AjaxAutocompleteJSONController
  * @package Resomedia\UsefulBundle\Controller
  */
-class AjaxAutocompleteJSONController extends Controller
+class AjaxAutocompleteJSONController extends AbstractController
 {
     /**
      * @param Request $request
