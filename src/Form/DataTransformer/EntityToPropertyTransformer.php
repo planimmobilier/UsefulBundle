@@ -2,7 +2,7 @@
 
 namespace Resomedia\UsefulBundle\Form\DataTransformer;
 
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 
@@ -19,11 +19,11 @@ class EntityToPropertyTransformer implements DataTransformerInterface
 
     /**
      * EntityToPropertyTransformer constructor.
-     * @param ObjectManager $em
+     * @param EntityManagerInterface $em
      * @param $class
      * @param $property
      */
-    public function __construct(ObjectManager $em, $class, $property)
+    public function __construct(EntityManagerInterface $em, $class, $property)
     {
         $this->em = $em;
         $this->unitOfWork = $this->em->getUnitOfWork();
