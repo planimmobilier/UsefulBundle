@@ -2,7 +2,7 @@
 
 namespace Resomedia\UsefulBundle\Form\Type;
 
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
@@ -24,9 +24,9 @@ class AjaxAutocompleteType extends AbstractType
     /**
      * AjaxAutocompleteType constructor.
      * @param ParameterBagInterface $parameterBag
-     * @param EntityManager $em
+     * @param EntityManagerInterface $em
      */
-    public function __construct(ParameterBagInterface $parameterBag, EntityManager $em)
+    public function __construct(ParameterBagInterface $parameterBag, EntityManagerInterface $em)
     {
         $this->parameterBag = $parameterBag;
         $this->em = $em;
