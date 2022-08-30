@@ -3,6 +3,7 @@
 namespace Resomedia\UsefulBundle\Form\DataTransformer;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 
@@ -16,26 +17,28 @@ class EntityToPropertyTransformer implements DataTransformerInterface
     protected $class;
     protected $property;
     protected $unitOfWork;
+    protected $where;
 
     /**
      * EntityToPropertyTransformer constructor.
      * @param EntityManagerInterface $em
      * @param $class
      * @param $property
+     * @param $where
      */
-    public function __construct(EntityManagerInterface $em, $class, $property)
+    public function __construct(EntityManagerInterface $em, $class, $property, $where)
     {
         $this->em = $em;
         $this->unitOfWork = $this->em->getUnitOfWork();
         $this->class = $class;
         $this->property = $property;
-
+        $this->where = $where;
     }
 
     /**
      * @param mixed $entity
      * @return mixed|null
-     * @throws \Exception
+     * @throws Exception
      */
     public function transform($entity)
     {
@@ -44,7 +47,7 @@ class EntityToPropertyTransformer implements DataTransformerInterface
         }
 
         if (!$this->unitOfWork->isInIdentityMap($entity)) {
-            throw new \Exception('Entities passed to the choice field must be managed');
+            throw new Exception('Entities passed to the choice field must be managed');
         }
 
         if ($this->property) {
@@ -65,9 +68,13 @@ class EntityToPropertyTransformer implements DataTransformerInterface
         if (!$prop_value) {
             return null;
         }
+        $query = $this->em->getRepository($this->class)
+            ->createQueryBuilder()
+            ->where($this->property . '=' . $prop_value);
+        if ($this->where)
+            $query->andWhere($this->where);
 
-        $entity = $this->em->getRepository($this->class)->findOneBy(array($this->property => $prop_value));
-
-        return $entity;
+        $query->setMaxResults(1);
+        return $query->getOneOrNullResult();
     }
 }

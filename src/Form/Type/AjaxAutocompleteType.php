@@ -71,12 +71,16 @@ class AjaxAutocompleteType extends AbstractType
   
         $options['class'] = $entities[$options['entity_alias']]['class'];
         $options['choice_label'] = $entities[$options['entity_alias']]['choice_label'];
+        $where = null;
+        if (array_key_exists('where', $entities[$options['entity_alias']]))
+            $where = $entities[$options['entity_alias']]['where'];
 
 
         $builder->addViewTransformer(new EntityToPropertyTransformer(
             $this->em,
             $options['class'],
-            $options['choice_label']
+            $options['choice_label'],
+            $where
         ), true);
 
         $builder->setAttribute('entity_alias', $options['entity_alias']);
