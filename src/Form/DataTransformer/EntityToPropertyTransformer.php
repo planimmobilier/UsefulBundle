@@ -75,6 +75,6 @@ class EntityToPropertyTransformer implements DataTransformerInterface
             $query->andWhere($this->where);
 
         $query->setMaxResults(1);
-        return $query->getOneOrNullResult();
+        return $query->getQuery()->getOneOrNullResult();
     }
 }
