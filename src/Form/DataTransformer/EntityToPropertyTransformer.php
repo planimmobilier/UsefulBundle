@@ -65,14 +65,17 @@ class EntityToPropertyTransformer implements DataTransformerInterface
      */
     public function reverseTransform($prop_value)
     {
-        if (!$prop_value) {
+        if (!$prop_value)
             return null;
-        }
+
+        if (!is_numeric($prop_value))
+            $prop_value = '\'' . $prop_value . '\'';
+
         $query = $this->em->getRepository($this->class)
             ->createQueryBuilder('e')
-            ->where($this->property . '=' . $prop_value);
+            ->where('e.' . $this->property . '=' . $prop_value);
         if ($this->where)
-            $query->andWhere($this->where);
+            $query->andWhere('e.' . $this->where);
 
         $query->setMaxResults(1);
         return $query->getQuery()->getOneOrNullResult();
