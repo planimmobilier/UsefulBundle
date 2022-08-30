@@ -69,7 +69,7 @@ class EntityToPropertyTransformer implements DataTransformerInterface
             return null;
         }
         $query = $this->em->getRepository($this->class)
-            ->createQueryBuilder()
+            ->createQueryBuilder('e')
             ->where($this->property . '=' . $prop_value);
         if ($this->where)
             $query->andWhere($this->where);
