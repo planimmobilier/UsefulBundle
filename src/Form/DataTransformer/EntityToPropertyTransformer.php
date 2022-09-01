@@ -68,9 +68,6 @@ class EntityToPropertyTransformer implements DataTransformerInterface
         if (!$prop_value)
             return null;
 
-        if (!is_numeric($prop_value))
-            $prop_value = '\'' . $prop_value . '\'';
-
         $query = $this->em->getRepository($this->class)
             ->createQueryBuilder('e')
             ->where('e.' . $this->property . '= :prop_value')
