@@ -88,8 +88,8 @@ class Autocomplete {
             }).then(response => response.json()).then((data) => {
                 for (let i = 0; i < data.length; i++) {
                     const item = {
-                        label: data[i].label,
-                        value: data[i].id
+                        label: data[i],
+                        value: data[i]
                     };
                     if (removeDiacritics(item.label).toLowerCase().indexOf(removeDiacritics(lookup).toLowerCase()) >= 0) {
                         this.items.appendChild(this.createItem(lookup, item));
