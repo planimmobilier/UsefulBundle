@@ -1,4 +1,4 @@
-ResomediaUsefulBundle 3 - autocomplete easy
+ResomediaUsefulBundle - autocomplete easy
 ===============================================
 
 Fork from ShtumiUsefulBundle
@@ -8,7 +8,7 @@ Fork from ShtumiUsefulBundle
 ### Add the following lines to your  `deps` file and then run `php bin/vendors install`:
 
 ```
-"resomedia/useful-bundle": "4.*"
+"resomedia/useful-bundle": "5.*"
 
 ```
 
@@ -42,6 +42,12 @@ twig:
 ```
     <script type="text/javascript" src="{{ asset('bundles/resomediauseful/js/bootstrap3-typeahead.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/resomediauseful/js/useful.js') }}"></script>
+```
+
+### Or if you are using bootstrap 5 load it in your views whith this
+```
+    <script type="text/javascript" src="{{ asset('bundles/resomediauseful/js/autocomplete.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/resomediauseful/js/useful-bootstrap.js') }}"></script>
 ```
 
 ###Configuration
@@ -91,3 +97,6 @@ But the documentation is up to date and add symfony3 compatibility.
 For more tools in UsefulBundle check ShtumiUsefulBundle.
 ###V4.0
 Add symfony4 compatibility.
+###V5.0
+Add symfony5 compatibility.
+Add vanilla JS for bootstrap 5
