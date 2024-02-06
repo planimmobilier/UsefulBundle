@@ -1,4 +1,8 @@
 jQuery(function () {
+    autocomplete();
+});
+
+function autocomplete() {
     $('.autocomplete_input_useful').typeahead({
         source: function (query, process) {
             return $.get(this.$element.data('path'), {
@@ -13,4 +17,4 @@ jQuery(function () {
             return true;
         }
     });
-});
+}
