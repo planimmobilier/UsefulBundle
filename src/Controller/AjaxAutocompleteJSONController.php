@@ -6,6 +6,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\Persistence\ManagerRegistry;
+
 
 /**
  * Class AjaxAutocompleteJSONController
@@ -15,13 +17,14 @@ class AjaxAutocompleteJSONController extends AbstractController
 {
     /**
      * @param Request $request
+     * @param ManagerRegistry $doctrine
      * @return Response
      * @throws \Exception
      * @Route("/useful_ajaxautocomplete", name="useful_ajaxautocomplete")
      */
-    public function getJSONAction(Request $request)
+    public function getJSONAction(Request $request, ManagerRegistry $doctrine)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $doctrine->getManager();
 
         $entities = $this->getParameter('useful.autocomplete_entities');
 
