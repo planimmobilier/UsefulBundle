@@ -1,5 +1,5 @@
 const DEFAULTS = {
-    threshold: 3,
+    threshold: 2,
     maximumItems: 6,
     highlightTyped: true,
     highlightClass: 'text-primary',
