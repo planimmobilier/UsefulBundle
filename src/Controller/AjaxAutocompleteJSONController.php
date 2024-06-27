@@ -5,7 +5,7 @@ namespace Resomedia\UsefulBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Doctrine\Persistence\ManagerRegistry;
 
 
@@ -20,9 +20,9 @@ class AjaxAutocompleteJSONController extends AbstractController
      * @param ManagerRegistry $doctrine
      * @return Response
      * @throws \Exception
-     * @Route("/useful_ajaxautocomplete", name="useful_ajaxautocomplete")
      */
-    public function getJSONAction(Request $request, ManagerRegistry $doctrine)
+    #[Route('/useful_ajaxautocomplete', name: 'useful_ajaxautocomplete')]
+    public function getJSONAction(Request $request, ManagerRegistry $doctrine): Response
     {
         $em = $doctrine->getManager();
 
@@ -36,19 +36,12 @@ class AjaxAutocompleteJSONController extends AbstractController
         $letters = $request->get('letters');
         $maxRows = $request->get('maxRows');
 
-        switch ($entity_inf['search']) {
-            case "begins_with":
-                $like = $letters . '%';
-                break;
-            case "ends_with":
-                $like = '%' . $letters;
-                break;
-            case "contains":
-                $like = '%' . $letters . '%';
-                break;
-            default:
-                throw new \Exception('Unexpected value of parameter "search"');
-        }
+        $like = match ($entity_inf['search']) {
+            "begins_with" => $letters . '%',
+            "ends_with" => '%' . $letters,
+            "contains" => '%' . $letters . '%',
+            default => throw new \Exception('Unexpected value of parameter "search"'),
+        };
 
         $property = $entity_inf['choice_label'];
 
@@ -61,7 +54,7 @@ class AjaxAutocompleteJSONController extends AbstractController
 
         }
 
-        if (isset($entity_inf['where']) && !empty($entity_inf['where'])) {
+        if (!empty($entity_inf['where'])) {
             $where .= ' AND e.' . $entity_inf['where'];
         }
 
