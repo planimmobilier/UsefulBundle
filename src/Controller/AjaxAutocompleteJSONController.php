@@ -31,7 +31,8 @@ class AjaxAutocompleteJSONController extends AbstractController
         $entity_alias = $request->get('entity_alias');
         $entity_inf = $entities[$entity_alias];
 
-        $this->denyAccessUnlessGranted($entity_inf['role'], null, 'Unable to access this page!');
+        if (key_exists('role', $entity_inf) && $entity_inf['role'] !== null)
+            $this->denyAccessUnlessGranted($entity_inf['role'], null, 'Unable to access this page!');
 
         $letters = $request->get('letters');
         $maxRows = $request->get('maxRows');
