@@ -33,8 +33,6 @@ class Configuration implements ConfigurationInterface
                                 ->cannotBeEmpty()
                             ->end()
                             ->scalarNode('role')
-                                ->defaultValue('IS_AUTHENTICATED_ANONYMOUSLY')
-                                ->cannotBeEmpty()
                             ->end()
                             ->scalarNode('search')
                                 ->defaultValue('begins_with')
