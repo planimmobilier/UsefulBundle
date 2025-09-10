@@ -35,7 +35,8 @@ class AjaxAutocompleteType extends AbstractType
     /**
      * @param OptionsResolver $resolver
      */
-    public function configureOptions(OptionsResolver $resolver) {
+    public function configureOptions(OptionsResolver $resolver): void
+    {
         $resolver->setDefaults(array(
             'entity_alias' => null,
             'class' => null,
@@ -47,7 +48,7 @@ class AjaxAutocompleteType extends AbstractType
     /**
      * @return string
      */
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return 'useful_ajax_autocomplete';
     }
@@ -55,7 +56,7 @@ class AjaxAutocompleteType extends AbstractType
     /**
      * @return string
      */
-    public function getParent()
+    public function getParent(): string
     {
         return TextType::class;
     }
@@ -64,7 +65,7 @@ class AjaxAutocompleteType extends AbstractType
      * @param FormBuilderInterface $builder
      * @param array $options
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $entities = $this->parameterBag->get('useful.autocomplete_entities');
 
@@ -96,7 +97,7 @@ class AjaxAutocompleteType extends AbstractType
      * @param FormInterface $form
      * @param array $options
      */
-    public function buildView(FormView $view, FormInterface $form, array $options)
+    public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         $view->vars['entity_alias'] = $form->getConfig()->getAttribute('entity_alias');
         $view->vars['attr_class'] = $form->getConfig()->getAttribute('attr_class');
