@@ -40,7 +40,7 @@ class EntityToPropertyTransformer implements DataTransformerInterface
      * @return mixed|null
      * @throws Exception
      */
-    public function transform($entity)
+    public function transform(mixed $entity): mixed
     {
         if (null === $entity) {
             return null;
@@ -63,7 +63,7 @@ class EntityToPropertyTransformer implements DataTransformerInterface
      * @param mixed $prop_value
      * @return null|object
      */
-    public function reverseTransform($prop_value)
+    public function reverseTransform(mixed $prop_value): ?object
     {
         if (!$prop_value)
             return null;
