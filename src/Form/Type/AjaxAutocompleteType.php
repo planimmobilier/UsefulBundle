@@ -37,12 +37,12 @@ class AjaxAutocompleteType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'entity_alias' => null,
             'class' => null,
             'choice_label' => null,
             'compound' => false,
-        ));
+        ]);
     }
 
     /**
