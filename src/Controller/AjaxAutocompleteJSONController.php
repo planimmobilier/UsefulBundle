@@ -37,36 +37,49 @@ class AjaxAutocompleteJSONController extends AbstractController
         $letters = $request->get('letters');
         $maxRows = $request->get('maxRows');
 
-        $like = match ($entity_inf['search']) {
-            "begins_with" => $letters . '%',
-            "ends_with" => '%' . $letters,
-            "contains" => '%' . $letters . '%',
-            default => throw new \Exception('Unexpected value of parameter "search"'),
-        };
-
         $property = $entity_inf['choice_label'];
 
-        if (isset($entity_inf['case_insensitive'])) {
-            $where = 'WHERE LOWER(e.' . $property . ')';
-            $where .= ' LIKE LOWER(:like)';
-        } else {
-            $where = 'WHERE e.' . $property;
-            $where .= ' LIKE :like';
-
+        $searches = $entity_inf['searches'] ?? [];
+        if (empty($searches)) {
+            $searches = [['label' => $property, 'search' => 'begins_with']];
         }
+
+        $conditions = [];
+        $parameters = [];
+        foreach ($searches as $i => $search) {
+            $parameters['like' . $i] = match ($search['search']) {
+                "begins_with" => $letters . '%',
+                "ends_with" => '%' . $letters,
+                "contains" => '%' . $letters . '%',
+                default => throw new \Exception('Unexpected value of parameter "search"'),
+            };
+
+            if (!empty($entity_inf['case_insensitive'])) {
+                $conditions[] = 'LOWER(e.' . $search['label'] . ') LIKE LOWER(:like' . $i . ')';
+            } else {
+                $conditions[] = 'e.' . $search['label'] . ' LIKE :like' . $i;
+            }
+        }
+
+        $operator = $entity_inf['searches_operator'] ?? 'OR';
+        $where = 'WHERE (' . implode(' ' . $operator . ' ', $conditions) . ')';
 
         if (!empty($entity_inf['where'])) {
             $where .= ' AND e.' . $entity_inf['where'];
         }
 
-        $results = $em->createQuery(
+        $query = $em->createQuery(
             'SELECT e.' . $property . '
              FROM ' . $entity_inf['class'] . ' e ' .
             $where . ' ' .
             'ORDER BY e.' . $property)
-            ->setParameter('like', $like)
-            ->setMaxResults($maxRows)
-            ->getScalarResult();
+            ->setMaxResults($maxRows);
+
+        foreach ($parameters as $name => $value) {
+            $query->setParameter($name, $value);
+        }
+
+        $results = $query->getScalarResult();
 
         $res = [];
         foreach ($results AS $r) {
