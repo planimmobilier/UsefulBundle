@@ -8,7 +8,7 @@ Fork from ShtumiUsefulBundle
 ### Add the following lines to your  `deps` file and then run `php bin/vendors install`:
 
 ```
-"resomedia/useful-bundle": "5.*"
+"resomedia/useful-bundle": "6.*"
 
 ```
 
@@ -68,16 +68,24 @@ resomedia_useful:
             class: AcmeDemoBundle:Product
             choice_label: name
             role: ROLE_ADMIN
-            search: contains|ends_with|begins_with
+            searches:
+                - { label: name, search: contains }
+                - { label: reference, search: begins_with }
+            searches_operator: OR
             case_insensitive: true
 ```
 - **class** - Doctrine model.
 - **role** - User role to use form type. Default: *IS_AUTHENTICATED_ANONYMOUSLY*. It needs for security reason.
 - **choice_label** - Property that will be prompted by autocomplete. Default: *title*.
-- **search** - LIKE format to get autocomplete values. You can use:
-   - *begins_with* - LIKE 'value%' (**default**)
-   - *ends_with* - LIKE '%value'
-   - *contains*  - LIKE '%value%'
+- **searches** - List of searches combined with **searches_operator**. Each search has:
+   - **label** - Property to search on. Default: *title*.
+   - **search** - LIKE format to get autocomplete values. You can use:
+      - *begins_with* - LIKE 'value%' (**default**)
+      - *ends_with* - LIKE '%value'
+      - *contains*  - LIKE '%value%'
+
+  If **searches** is omitted, a single search is made on **choice_label**.
+- **searches_operator** - How the **searches** are combined: *OR* (**default**) or *AND*.
 - **where** - your condition
 - **case_insensitive** - Whether or not matching should be case sensitive or not
 - **encrypted** - true / false, if your field is encrypt. (**Soon**)
@@ -100,3 +108,6 @@ Add symfony4 compatibility.
 ###V5.0
 Add symfony5 compatibility.
 Add vanilla JS for bootstrap 5
+###V6.0
+Add symfony7 compatibility.
+Add multiple property filter
