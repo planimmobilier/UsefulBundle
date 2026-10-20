@@ -39,9 +39,14 @@ class AjaxAutocompleteJSONController extends AbstractController
 
         $property = $entity_inf['choice_label'];
 
+        $searches = $entity_inf['searches'] ?? [];
+        if (empty($searches)) {
+            $searches = [['label' => $property, 'search' => 'begins_with']];
+        }
+
         $conditions = [];
         $parameters = [];
-        foreach ($entity_inf['searches'] as $i => $search) {
+        foreach ($searches as $i => $search) {
             $parameters['like' . $i] = match ($search['search']) {
                 "begins_with" => $letters . '%',
                 "ends_with" => '%' . $letters,

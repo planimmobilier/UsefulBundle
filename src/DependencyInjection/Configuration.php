@@ -34,7 +34,6 @@ class Configuration implements ConfigurationInterface
                             ->end()
                             ->scalarNode('role')->end()
                             ->arrayNode('searches')
-                                ->requiresAtLeastOneElement()
                                 ->arrayPrototype()
                                     ->children()
                                         ->scalarNode('label')
